@@ -66,10 +66,13 @@
 </div>
 
 <script>
+    let selectedFileName = '';
+
     function handleVideoSelect(event) {
         const file = event.target.files[0];
         if (!file) return;
 
+        selectedFileName = file.name;
         document.getElementById('fileName').innerText = file.name;
         document.getElementById('fileSize').innerText = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
 
@@ -83,14 +86,29 @@
         };
     }
 
-    function startAnalysis() {
+    async function startAnalysis() {
         document.getElementById('inputSection').style.display = 'none';
         document.getElementById('videoPreviewContainer').style.display = 'none';
         document.getElementById('processingDashboard').style.display = 'block';
-        
-        document.getElementById('st1').innerText = '✓ Done';
-        document.getElementById('st1').className = 'status-badge status-done';
-        document.getElementById('st2').innerText = 'In Progress (0%)';
+
+        const videoUrl = document.getElementById('videoUrl').value;
+
+        try {
+            const response = await fetch('/api/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fileName: selectedFileName, videoUrl: videoUrl })
+            });
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                document.getElementById('st1').innerText = '✓ Done';
+                document.getElementById('st1').className = 'status-badge status-done';
+                document.getElementById('st2').innerText = 'In Progress (15%)';
+            }
+        } catch (err) {
+            alert('Backend processing connection error.');
+        }
     }
 </script>
 
