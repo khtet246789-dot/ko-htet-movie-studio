@@ -15,6 +15,9 @@
         .btn-primary { background: #f43f5e; color: white; }
         .btn-secondary { background: #334155; color: white; }
         input[type="text"] { width: 100%; padding: 10px; margin-top: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; }
+        #videoPreviewContainer { display: none; background: #0f172a; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        video { width: 100%; border-radius: 6px; margin-bottom: 10px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #cbd5e1; text-align: left; }
     </style>
 </head>
 <body>
@@ -26,7 +29,7 @@
         <h3>📤 1. Upload Video File</h3>
         <p style="font-size: 12px; color: #94a3b8; margin: 8px 0;">(Authorized Movie / Clip MP4 File)</p>
         <label for="videoUpload" class="btn btn-secondary">Select Video File</label>
-        <input type="file" id="videoUpload" accept="video/*">
+        <input type="file" id="videoUpload" accept="video/*" onchange="handleVideoSelect(event)">
     </div>
 
     <div class="card">
@@ -34,8 +37,36 @@
         <input type="text" id="videoUrl" placeholder="Paste Direct Video URL...">
     </div>
 
-    <button class="btn btn-primary" onclick="alert('Proceeding to Step 2...')">🎬 CREATE NEW VIDEO PROJECT</button>
+    <div id="videoPreviewContainer">
+        <video id="videoPlayer" controls></video>
+        <div class="info-grid">
+            <div><b>File Name:</b> <span id="fileName">-</span></div>
+            <div><b>Size:</b> <span id="fileSize">-</span></div>
+            <div><b>Duration:</b> <span id="duration">-</span></div>
+            <div><b>Resolution:</b> <span id="resolution">-</span></div>
+        </div>
+        <button class="btn btn-primary" style="margin-top: 15px;" onclick="alert('Proceeding to Pipeline Processing...')">🔍 START ANALYSIS</button>
+    </div>
 </div>
+
+<script>
+    function handleVideoSelect(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        document.getElementById('fileName').innerText = file.name;
+        document.getElementById('fileSize').innerText = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+
+        const videoPlayer = document.getElementById('videoPlayer');
+        videoPlayer.src = URL.createObjectURL(file);
+        
+        videoPlayer.onloadedmetadata = function() {
+            document.getElementById('duration').innerText = Math.round(videoPlayer.duration) + ' seconds';
+            document.getElementById('resolution').innerText = videoPlayer.videoWidth + 'x' + videoPlayer.videoHeight;
+            document.getElementById('videoPreviewContainer').style.display = 'block';
+        };
+    }
+</script>
 
 </body>
 </html>
