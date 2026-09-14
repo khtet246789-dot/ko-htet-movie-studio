@@ -21,6 +21,7 @@
         .step-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1e293b; font-size: 13px; }
         .status-badge { font-weight: bold; color: #f43f5e; }
         .status-done { color: #10b981; }
+        .status-active { color: #38bdf8; }
     </style>
 </head>
 <body>
@@ -91,6 +92,11 @@
         document.getElementById('videoPreviewContainer').style.display = 'none';
         document.getElementById('processingDashboard').style.display = 'block';
 
+        document.getElementById('st1').innerText = '✓ Done';
+        document.getElementById('st1').className = 'status-badge status-done';
+        document.getElementById('st2').innerText = 'In Progress (15%)';
+        document.getElementById('st2').className = 'status-badge status-active';
+
         const videoUrl = document.getElementById('videoUrl').value;
 
         try {
@@ -102,12 +108,13 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                document.getElementById('st1').innerText = '✓ Done';
-                document.getElementById('st1').className = 'status-badge status-done';
-                document.getElementById('st2').innerText = 'In Progress (15%)';
+                document.getElementById('st2').innerText = '✓ Done';
+                document.getElementById('st2').className = 'status-badge status-done';
+                document.getElementById('st3').innerText = 'In Progress (30%)';
+                document.getElementById('st3').className = 'status-badge status-active';
             }
         } catch (err) {
-            alert('Backend processing connection error.');
+            alert('Audio separation processing error.');
         }
     }
 </script>
