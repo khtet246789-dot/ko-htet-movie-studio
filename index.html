@@ -100,8 +100,10 @@
         document.getElementById('st3').className = 'status-badge status-done';
         document.getElementById('st4').innerText = '✓ Done';
         document.getElementById('st4').className = 'status-badge status-done';
-        document.getElementById('st5').innerText = 'In Progress (70%)';
-        document.getElementById('st5').className = 'status-badge status-active';
+        document.getElementById('st5').innerText = '✓ Done';
+        document.getElementById('st5').className = 'status-badge status-done';
+        document.getElementById('st6').innerText = 'In Progress (85%)';
+        document.getElementById('st6').className = 'status-badge status-active';
 
         const videoUrl = document.getElementById('videoUrl').value;
 
@@ -114,13 +116,13 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                document.getElementById('st5').innerText = '✓ Done';
-                document.getElementById('st5').className = 'status-badge status-done';
-                document.getElementById('st6').innerText = 'In Progress (85%)';
-                document.getElementById('st6').className = 'status-badge status-active';
+                document.getElementById('st6').innerText = '✓ Done';
+                document.getElementById('st6').className = 'status-badge status-done';
+                document.getElementById('st7').innerText = '✓ Completed (100%)';
+                document.getElementById('st7').className = 'status-badge status-done';
             }
         } catch (err) {
-            alert('Voice generation processing error.');
+            alert('Final rendering error.');
         }
     }
 </script>
