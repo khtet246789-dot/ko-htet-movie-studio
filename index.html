@@ -94,8 +94,10 @@
 
         document.getElementById('st1').innerText = '✓ Done';
         document.getElementById('st1').className = 'status-badge status-done';
-        document.getElementById('st2').innerText = 'In Progress (15%)';
-        document.getElementById('st2').className = 'status-badge status-active';
+        document.getElementById('st2').innerText = '✓ Done';
+        document.getElementById('st2').className = 'status-badge status-done';
+        document.getElementById('st3').innerText = 'In Progress (30%)';
+        document.getElementById('st3').className = 'status-badge status-active';
 
         const videoUrl = document.getElementById('videoUrl').value;
 
@@ -108,13 +110,13 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                document.getElementById('st2').innerText = '✓ Done';
-                document.getElementById('st2').className = 'status-badge status-done';
-                document.getElementById('st3').innerText = 'In Progress (30%)';
-                document.getElementById('st3').className = 'status-badge status-active';
+                document.getElementById('st3').innerText = '✓ Done';
+                document.getElementById('st3').className = 'status-badge status-done';
+                document.getElementById('st4').innerText = 'In Progress (50%)';
+                document.getElementById('st4').className = 'status-badge status-active';
             }
         } catch (err) {
-            alert('Audio separation processing error.');
+            alert('Scene transcription processing error.');
         }
     }
 </script>
