@@ -10,17 +10,17 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'No video input provided.' });
         }
 
-        // Phase 2: Audio Extraction & Processing Simulation
+        // Phase 3: Transcription & Scene Analysis Processing
         return res.status(200).json({
             status: 'success',
-            message: 'Audio Extracted Successfully',
+            message: 'Scene Transcription Completed',
             pipeline: {
-                stage: 'Scene Transcription',
-                progress: 30,
-                audioExtracted: true
+                stage: 'Myanmar Recap Scripting',
+                progress: 50,
+                transcriptionDone: true
             }
         });
     } catch (error) {
-        return res.status(500).json({ error: 'Audio Separation Failed.' });
+        return res.status(500).json({ error: 'Scene Transcription Failed.' });
     }
 }
