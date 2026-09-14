@@ -10,15 +10,17 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'No video input provided.' });
         }
 
+        // Phase 2: Audio Extraction & Processing Simulation
         return res.status(200).json({
             status: 'success',
-            message: 'Video Validation & Analysis Started',
+            message: 'Audio Extracted Successfully',
             pipeline: {
-                stage: 'Audio Separation',
-                progress: 15
+                stage: 'Scene Transcription',
+                progress: 30,
+                audioExtracted: true
             }
         });
     } catch (error) {
-        return res.status(500).json({ error: 'Failed to process video pipeline.' });
+        return res.status(500).json({ error: 'Audio Separation Failed.' });
     }
 }
