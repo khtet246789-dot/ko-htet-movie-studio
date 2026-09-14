@@ -3,64 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ko Htet Movie Recap Studio</title>
+    <title>Ko Htet Movie Recap Video Studio</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: #1e293b; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        h1 { font-size: 22px; color: #f43f5e; text-align: center; margin-bottom: 20px; }
-        label { display: block; margin-top: 15px; font-weight: bold; color: #cbd5e1; font-size: 14px; }
-        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 14px; }
-        textarea { height: 120px; resize: vertical; }
-        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
-        button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 16px; }
+        .container { max-width: 600px; margin: 0 auto; background: #1e293b; padding: 20px; border-radius: 12px; }
+        h1 { font-size: 20px; color: #f43f5e; text-align: center; margin-bottom: 20px; }
+        .card { background: #0f172a; border: 2px dashed #334155; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 15px; }
+        input[type="file"] { display: none; }
+        .btn { display: inline-block; width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; margin-top: 8px; }
         .btn-primary { background: #f43f5e; color: white; }
-        .btn-secondary { background: #3b82f6; color: white; }
-        button:active { opacity: 0.8; }
+        .btn-secondary { background: #334155; color: white; }
+        input[type="text"] { width: 100%; padding: 10px; margin-top: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🎬 Ko Htet Movie Recap Studio</h1>
+    <h1>🎬 Ko Htet Video Studio</h1>
     
-    <label>ရုပ်ရှင်အမည် (Movie Title)</label>
-    <input type="text" id="movieTitle" placeholder="ဥပမာ- Inception (2010)">
-
-    <label>အမျိုးအစား (Genre)</label>
-    <select id="genre">
-        <option>Action / Sci-Fi</option>
-        <option>Horror / Thriller</option>
-        <option>Drama / Romance</option>
-        <option>Comedy</option>
-    </select>
-
-    <label>Hook Line (စတင်စိတ်ဝင်စားအောင်ပြောမည့် စာကြောင်း)</label>
-    <textarea id="hookLine" placeholder="ဥပမာ- ဒီနေ့မှာတော့ အိပ်မက်ထဲထိ ဝင်ပြီး စိတ်ကူးတွေကို ခိုးယူတတ်တဲ့ သူခိုးတစ်ယောက်အကြောင်း ကြည့်လိုက်ရအောင်..."></textarea>
-
-    <label>Voiceover Script (ဇာတ်လမ်းအကျဉ်းနှင့် အသံသွင်း စာသားများ)</label>
-    <textarea id="scriptText" placeholder="ဇာတ်လမ်း အပြည့်အစုံ Script ကို ဒီမှာ ရေးပါ..."></textarea>
-
-    <div class="btn-group">
-        <button class="btn-primary" onclick="saveScript()">💾 Script သိမ်းမည်</button>
-        <button class="btn-secondary" onclick="copyScript()">📋 Copy ယူမည်</button>
+    <div class="card">
+        <h3>📤 1. Upload Video File</h3>
+        <p style="font-size: 12px; color: #94a3b8; margin: 8px 0;">(Authorized Movie / Clip MP4 File)</p>
+        <label for="videoUpload" class="btn btn-secondary">Select Video File</label>
+        <input type="file" id="videoUpload" accept="video/*">
     </div>
-</div>
 
-<script>
-    function saveScript() {
-        alert('Script ကို ခေတ္တ သိမ်းဆည်းပြီးပါပြီ။');
-    }
-    function copyScript() {
-        const title = document.getElementById('movieTitle').value;
-        const hook = document.getElementById('hookLine').value;
-        const script = document.getElementById('scriptText').value;
-        const fullText = `🎬 ${title}\n\n[Hook]\n${hook}\n\n[Script]\n${script}`;
-        
-        navigator.clipboard.writeText(fullText);
-        alert('Script တစ်ခုလုံးကို Copy ကူးပြီးပါပြီ။');
-    }
-</script>
+    <div class="card">
+        <h3>🔗 2. Enter Authorized Video Source</h3>
+        <input type="text" id="videoUrl" placeholder="Paste Direct Video URL...">
+    </div>
+
+    <button class="btn btn-primary" onclick="alert('Proceeding to Step 2...')">🎬 CREATE NEW VIDEO PROJECT</button>
+</div>
 
 </body>
 </html>
