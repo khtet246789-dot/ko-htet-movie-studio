@@ -11,11 +11,12 @@
         h1 { font-size: 20px; color: #f43f5e; text-align: center; margin-bottom: 20px; }
         .card { background: #0f172a; border: 2px dashed #334155; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 15px; }
         input[type="file"] { display: none; }
-        .btn { display: inline-block; width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; margin-top: 8px; }
+        .btn { display: inline-block; width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; margin-top: 8px; text-decoration: none; }
         .btn-primary { background: #f43f5e; color: white; }
         .btn-secondary { background: #334155; color: white; }
+        .btn-success { background: #10b981; color: white; }
         input[type="text"] { width: 100%; padding: 10px; margin-top: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; }
-        #videoPreviewContainer, #processingDashboard { display: none; background: #0f172a; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        #videoPreviewContainer, #processingDashboard, #downloadContainer { display: none; background: #0f172a; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
         video { width: 100%; border-radius: 6px; margin-bottom: 10px; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #cbd5e1; text-align: left; }
         .step-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1e293b; font-size: 13px; }
@@ -64,21 +65,29 @@
         <div class="step-item"><span>Subtitle Overlay & Watermark</span><span id="st6" class="status-badge">Waiting</span></div>
         <div class="step-item"><span>Final MP4 Video Render</span><span id="st7" class="status-badge">Waiting</span></div>
     </div>
+
+    <div id="downloadContainer" style="text-align: center;">
+        <h3 style="color: #10b981; margin-bottom: 10px;">🎉 Video Recap Ready!</h3>
+        <a id="downloadBtn" href="#" download="recap-video.mp4" class="btn btn-success">📥 DOWNLOAD RECAP VIDEO</a>
+    </div>
 </div>
 
 <script>
     let selectedFileName = '';
+    let selectedFileUrl = '';
 
     function handleVideoSelect(event) {
         const file = event.target.files[0];
         if (!file) return;
 
         selectedFileName = file.name;
+        selectedFileUrl = URL.createObjectURL(file);
+
         document.getElementById('fileName').innerText = file.name;
         document.getElementById('fileSize').innerText = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
 
         const videoPlayer = document.getElementById('videoPlayer');
-        videoPlayer.src = URL.createObjectURL(file);
+        videoPlayer.src = selectedFileUrl;
         
         videoPlayer.onloadedmetadata = function() {
             document.getElementById('duration').innerText = Math.round(videoPlayer.duration) + ' seconds';
@@ -120,6 +129,11 @@
                 document.getElementById('st6').className = 'status-badge status-done';
                 document.getElementById('st7').innerText = '✓ Completed (100%)';
                 document.getElementById('st7').className = 'status-badge status-done';
+
+                // Enable Download Button
+                const downloadBtn = document.getElementById('downloadBtn');
+                downloadBtn.href = selectedFileUrl || '#';
+                document.getElementById('downloadContainer').style.display = 'block';
             }
         } catch (err) {
             alert('Final rendering error.');
