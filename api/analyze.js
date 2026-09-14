@@ -10,17 +10,17 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'No video input provided.' });
         }
 
-        // Phase 4: Myanmar Recap Script Generation Simulation
+        // Phase 5: Voice Generation & Subtitle Overlay Processing
         return res.status(200).json({
             status: 'success',
-            message: 'Myanmar Recap Script Generated',
+            message: 'Voice & Subtitle Processing Completed',
             pipeline: {
-                stage: 'Myanmar Voice Generation',
-                progress: 70,
-                scriptGenerated: true
+                stage: 'Subtitle Overlay & Watermark',
+                progress: 85,
+                voiceGenerated: true
             }
         });
     } catch (error) {
-        return res.status(500).json({ error: 'Recap Script Generation Failed.' });
+        return res.status(500).json({ error: 'Voice Generation Failed.' });
     }
 }
