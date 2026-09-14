@@ -15,9 +15,12 @@
         .btn-primary { background: #f43f5e; color: white; }
         .btn-secondary { background: #334155; color: white; }
         input[type="text"] { width: 100%; padding: 10px; margin-top: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; }
-        #videoPreviewContainer { display: none; background: #0f172a; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        #videoPreviewContainer, #processingDashboard { display: none; background: #0f172a; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
         video { width: 100%; border-radius: 6px; margin-bottom: 10px; }
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; color: #cbd5e1; text-align: left; }
+        .step-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1e293b; font-size: 13px; }
+        .status-badge { font-weight: bold; color: #f43f5e; }
+        .status-done { color: #10b981; }
     </style>
 </head>
 <body>
@@ -25,16 +28,18 @@
 <div class="container">
     <h1>🎬 Ko Htet Video Studio</h1>
     
-    <div class="card">
-        <h3>📤 1. Upload Video File</h3>
-        <p style="font-size: 12px; color: #94a3b8; margin: 8px 0;">(Authorized Movie / Clip MP4 File)</p>
-        <label for="videoUpload" class="btn btn-secondary">Select Video File</label>
-        <input type="file" id="videoUpload" accept="video/*" onchange="handleVideoSelect(event)">
-    </div>
+    <div id="inputSection">
+        <div class="card">
+            <h3>📤 1. Upload Video File</h3>
+            <p style="font-size: 12px; color: #94a3b8; margin: 8px 0;">(Authorized Movie / Clip MP4 File)</p>
+            <label for="videoUpload" class="btn btn-secondary">Select Video File</label>
+            <input type="file" id="videoUpload" accept="video/*" onchange="handleVideoSelect(event)">
+        </div>
 
-    <div class="card">
-        <h3>🔗 2. Enter Authorized Video Source</h3>
-        <input type="text" id="videoUrl" placeholder="Paste Direct Video URL...">
+        <div class="card">
+            <h3>🔗 2. Enter Authorized Video Source</h3>
+            <input type="text" id="videoUrl" placeholder="Paste Direct Video URL...">
+        </div>
     </div>
 
     <div id="videoPreviewContainer">
@@ -45,7 +50,18 @@
             <div><b>Duration:</b> <span id="duration">-</span></div>
             <div><b>Resolution:</b> <span id="resolution">-</span></div>
         </div>
-        <button class="btn btn-primary" style="margin-top: 15px;" onclick="alert('Proceeding to Pipeline Processing...')">🔍 START ANALYSIS</button>
+        <button class="btn btn-primary" style="margin-top: 15px;" onclick="startAnalysis()">🔍 START ANALYSIS</button>
+    </div>
+
+    <div id="processingDashboard">
+        <h3 style="margin-bottom: 12px; font-size: 16px; color: #38bdf8;">⚙️ Video Processing Jobs</h3>
+        <div class="step-item"><span>Video Upload & Validation</span><span id="st1" class="status-badge">Waiting</span></div>
+        <div class="step-item"><span>Audio Separation</span><span id="st2" class="status-badge">Waiting</span></div>
+        <div class="step-item"><span>Scene Transcription</span><span id="st3" class="status-badge">Waiting</span></div>
+        <div class="step-item"><span>Myanmar Recap Scripting</span><span id="st4" class="status-badge">Waiting</span></div>
+        <div class="step-item"><span>Myanmar Voice Generation</span><span id="st5" class="status-badge">Waiting</span></div>
+        <div class="step-item"><span>Subtitle Overlay & Watermark</span><span id="st6" class="status-badge">Waiting</span></div>
+        <div class="step-item"><span>Final MP4 Video Render</span><span id="st7" class="status-badge">Waiting</span></div>
     </div>
 </div>
 
@@ -65,6 +81,16 @@
             document.getElementById('resolution').innerText = videoPlayer.videoWidth + 'x' + videoPlayer.videoHeight;
             document.getElementById('videoPreviewContainer').style.display = 'block';
         };
+    }
+
+    function startAnalysis() {
+        document.getElementById('inputSection').style.display = 'none';
+        document.getElementById('videoPreviewContainer').style.display = 'none';
+        document.getElementById('processingDashboard').style.display = 'block';
+        
+        document.getElementById('st1').innerText = '✓ Done';
+        document.getElementById('st1').className = 'status-badge status-done';
+        document.getElementById('st2').innerText = 'In Progress (0%)';
     }
 </script>
 
